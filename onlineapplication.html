@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply - Hot Beans Web</title>
+    <link rel="stylesheet" href="mystyle.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo"><a href="index.html">Hot <span>Beans</span></a></div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">Our team</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="onlineapplication.html">Online application</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Start Your Journey With Us</h1>
+            <p>Take the first step towards a career building a greener web.</p>
+        </div>
+        <div class="info-image">
+            <img src="app.jpg" alt="Apply to Hot Beans Web">
+        </div>
+    </section>
+
+    <section class="apply">
+        <div class="apply-container">
+            <h2 class="apply-title">Online Application</h2>
+            <p class="apply-subtitle">Fill in the form below and we'll get back to you as soon as possible.</p>
+
+            <form class="apply-form" onsubmit="handleSubmit(event)">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstname">First Name</label>
+                        <input type="text" id="firstname" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname">Last Name</label>
+                        <input type="text" id="lastname" placeholder="Smith" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="john@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="+44 7700 900000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="position">Position Applying For</label>
+                    <select id="position" required>
+                        <option value="" disabled selected>Select a position</option>
+                        <option>Frontend Developer</option>
+                        <option>Backend Developer</option>
+                        <option>UX / UI Designer</option>
+                        <option>DevOps Engineer</option>
+                        <option>Junior Web Developer</option>
+                        <option>Sustainability Consultant</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="files">Upload CV / Supporting Documents</label>
+                    <div class="file-drop" id="fileDrop">
+                        <input type="file" id="files" multiple accept=".pdf,.doc,.docx,.png,.jpg">
+                        <div class="file-drop__content">
+                            <span class="file-drop__icon">📎</span>
+                            <p>Drag & drop your files here or <span class="file-drop__link">browse</span></p>
+                            <p class="file-drop__hint">PDF, DOC, DOCX, PNG, JPG accepted</p>
+                        </div>
+                        <p class="file-drop__names" id="fileNames"></p>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn--full">Submit Application</button>
+
+            </form>
+
+            <div class="apply-success" id="successMsg">
+                <span></span>
+                <h3>Application Received!</h3>
+                <p>Thank you for applying. We'll be in touch within 5 working days.</p>
+            </div>
+
+        </div>
+    </section>
+
+     <footer class="footer">
+        <div class="footer-icons">
+            <a href="https://www.instagram.com/hotbeansweb_1997/" class="footer-icon"><img src="ig.jpg" alt="IG"></a>
+            <a href="https://www.facebook.com/hotbeansweb000/" class="footer-icon"><img src="fb.jpg" alt="FB"></a>
+            <a href="https://www.linkedin.com/in/hot-beans-web-816101164/" class="footer-icon"><img src="li.jpg" alt="LI"></a>
+            <a href="https://x.com/HotBeansWeb_UK" class="footer-icon"><img src="x.jpg" alt="X"></a>
+        </div>
+        <p class="footer-copy">© 2026 Hot Beans Web. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const fileInput = document.getElementById('files');
+        const fileNames = document.getElementById('fileNames');
+        const fileDrop  = document.getElementById('fileDrop');
+
+        fileInput.addEventListener('change', () => {
+            const names = Array.from(fileInput.files).map(f => f.name).join(', ');
+            fileNames.textContent = names ? '📄 ' + names : '';
+        });
+
+        fileDrop.addEventListener('click', () => fileInput.click());
+
+        fileDrop.addEventListener('dragover', e => {
+            e.preventDefault();
+            fileDrop.classList.add('file-drop--active');
+        });
+
+        fileDrop.addEventListener('dragleave', () => {
+            fileDrop.classList.remove('file-drop--active');
+        });
+
+        fileDrop.addEventListener('drop', e => {
+            e.preventDefault();
+            fileDrop.classList.remove('file-drop--active');
+            fileInput.files = e.dataTransfer.files;
+            const names = Array.from(e.dataTransfer.files).map(f => f.name).join(', ');
+            fileNames.textContent = names ? '📄 ' + names : '';
+        });
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            document.querySelector('.apply-form').style.display = 'none';
+            document.getElementById('successMsg').style.display  = 'flex';
+        }
+    </script>
+
+</body>
+</html>
